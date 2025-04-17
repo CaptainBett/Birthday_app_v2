@@ -1,0 +1,111 @@
+/* Base styles */
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family: 'Merriweather', serif;
+  background: url('../images/birthday-bg.jpg') center/cover fixed;
+  min-height:100vh; color:#333;
+}
+
+/* Hero & overlay */
+.hero {
+  position:relative; display:flex; align-items:center; justify-content:center;
+  height:100vh; overflow:hidden;
+}
+.hero .overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(255,154,139,0.7), rgba(255,106,136,0.7));
+  animation: gradientShift 10s ease infinite;
+}
+@keyframes gradientShift {
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+
+/* Glass card */
+.glass-card {
+  position:relative; z-index:1;
+  backdrop-filter: blur(8px); background:rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,0.3); border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.1);
+  padding:2rem; max-width:320px; width:90%; text-align:center;
+  animation: slideUp 1s ease-out;
+}
+@keyframes slideUp {
+  from{opacity:0;transform:translateY(50px)} to{opacity:1;transform:translateY(0)}
+}
+
+/* Titles */
+.hero-title {
+  font-family:'Playfair Display', serif;
+  font-size:2rem; margin-bottom:1rem;
+  color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Forms */
+.premium-form input,
+.premium-form button,
+.premium-form textarea {
+  width:100%; margin-bottom:1rem; padding:0.75rem 1rem;
+  border:none; border-radius:999px; outline:none;
+  transition: transform .2s, box-shadow .2s;
+}
+.premium-form input:focus,
+.premium-form textarea:focus {
+  transform:scale(1.02);
+  box-shadow:0 0 0 3px rgba(255,154,139,0.5);
+}
+.premium-form button {
+  background:#ff5e7e; color:#fff; font-weight:600; cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2);
+}
+.premium-form button:hover { transform:scale(1.05); box-shadow:0 6px 24px rgba(0,0,0,0.25); }
+.premium-form button:active{ transform:scale(0.98); }
+
+/* Textarea */
+.premium-form textarea {
+  border-radius:1rem; min-height:120px;
+  font-family:'Merriweather', serif; resize:vertical;
+}
+
+/* Small hero variant */
+.hero.small { padding:2rem 0; height:auto; }
+
+/* SVG animation */
+.svg-anim { width:120px; margin:0 auto 1rem; animation: float 3s ease-in-out infinite; }
+@keyframes float {
+  0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}
+}
+
+/* Summary bar */
+.summary-bar {
+  position:sticky; bottom:0; width:100%; background:rgba(255,255,255,0.9);
+  padding:.75rem; text-align:center; font-family:'Merriweather', serif;
+  box-shadow:0 -2px 8px rgba(0,0,0,0.1);
+}
+
+/* Premium button on error page */
+.premium-button {
+  display:inline-block; margin-top:1rem; padding:.75rem 1.5rem;
+  background:#ff5e7e; color:#fff; text-decoration:none; border-radius:999px;
+  transition:transform .2s;
+}
+.premium-button:hover { transform:scale(1.05); }
+
+.payment-button {
+  position: relative;
+}
+
+/* Loading Spinner */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
