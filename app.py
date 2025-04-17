@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import uuid
 import secrets
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='templates',static_folder='static')
 app.secret_key = secrets.token_hex(16)  
 load_dotenv()
 
@@ -111,6 +111,7 @@ def success():
 @app.route("/error")
 def error():
     return render_template("error.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
