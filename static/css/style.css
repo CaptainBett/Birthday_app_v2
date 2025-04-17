@@ -3,7 +3,7 @@
 body {
   font-family: 'Merriweather', serif;
   background: url('../images/birthday-bg.jpg') center/cover fixed;
-  min-height:100vh; color:#333;
+  min-height:80vh; color:#333;
 }
 
 /* Hero & overlay */
