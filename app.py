@@ -40,8 +40,8 @@ class Payment(db.Model):
 
 
 # ─── Application Context to Create Database ─────────────────────────────────────
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 # ─── User‑driven flow ─────────────────────────────────────────────────────────────
 @app.route("/", methods=["GET", "POST"])
