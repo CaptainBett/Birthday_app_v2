@@ -14,5 +14,21 @@
       <p>Please complete the STK prompt on your phone.</p>
     </div>
   </section>
+  <script>
+    const checkoutId = "{{ checkout_id }}";
+    const check = () => {
+      fetch(`/payment_status/${checkoutId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === 'success') {
+            window.location.href = `/success?amount=${data.amount}`;
+          } else if (data.status === 'failed') {
+            window.location.href = '/error';
+          }
+        });
+    };
+    // poll every 5s
+    setInterval(check, 5000);
+  </script>
 </body>
 </html>
