@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -28,54 +28,6 @@
   <script src="{{ url_for('static', filename='js/confetti.js') }}"></script>
   <script src="{{ url_for('static', filename='js/summary.js') }}"></script>
 </body>
-</html> -->
+</html> 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Send & Pay 🎁</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-</head>
-<body>
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="glass-card">
-      <h2 class="hero-title">Almost there!</h2>
-      <p>Enter an amount to send and complete payment.</p>
-
-      <form id="payment-form" action="{{ url_for('process_payment') }}" method="POST">
-        <input type="hidden" name="phone" value="{{ session['phone'] }}" />
-        <label>
-          Amount (KES):
-          <input name="amount" required />
-        </label>
-        <button id="buy-btn" type="submit">🎁 Buy Me a Gift</button>
-      </form>
-    </div>
-  </section>
-
-  <script>
-    document.getElementById('payment-form').addEventListener('submit', e => {
-      e.preventDefault();
-  
-      // 1. Grab the note & recipient from template vars
-      const note      = "{{ note|e }}";  
-      const recipient = "{{ giftee_whatsapp_to }}";
-  
-      // 2. Build the Click‑to‑Chat URL
-      const waLink = `https://api.whatsapp.com/send?phone=${recipient}`
-                   + `&text=${encodeURIComponent(note)}`;
-  
-      // 3. Open WhatsApp at the user's client
-      window.open(waLink, '_blank');
-  
-      // 4. Submit the M‑Pesa form
-      e.target.submit();
-    });
-  </script>
-  
-</body>
-</html>
