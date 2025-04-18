@@ -61,7 +61,19 @@ def message():
 
 @app.route("/gift")
 def gift():
-    return render_template("gift.html")
+    # pull from session
+    note = session.get("note", "")
+    phone = session.get("phone", "")
+
+    # your hidden backend WhatsApp number
+    giftee_whatsapp_to = os.getenv("GIFTEE_WHATSAPP_TO")
+
+    return render_template(
+        "gift.html",
+        note=note,
+        phone=phone,
+        giftee_whatsapp_to=giftee_whatsapp_to
+    )
 
 
 # ─── Kick off STK Push ────────────────────────────────────────────────────────────
