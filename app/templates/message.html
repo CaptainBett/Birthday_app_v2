@@ -4,8 +4,12 @@
 
 {% block content %}
 
-  <h2 class="hero-title">Thank you, {{ user.name }}!</h2>
-  <p class="subtitle" style="margin-bottom: 3px;">Leave me a note:</p>
+<h2 class="hero-title">
+  Thank you, 
+  <span style="color: var(--accent-color)">
+    {{ user.name if user else 'Friend' }}
+  </span>!
+</h2>  <p class="subtitle" style="margin-bottom: 3px;">Leave me a note:</p>
 
   <form action="{{ url_for('user.message_page') }}" method="POST" class="premium-form">
     {{ form.hidden_tag() }}

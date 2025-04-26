@@ -2,7 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-
+from dotenv import load_dotenv
 from app.models import db, User, Admin as AdminModel, Message, Contribution, Event
 from config import Config
 
@@ -15,6 +15,7 @@ def load_user(user_id):
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+    load_dotenv() 
     app.config.from_object(config_class)
     
     # Initialize extensions

@@ -34,8 +34,15 @@ def message_page():
         flash('Please register first.', 'warning')
         return redirect(url_for('user.landing_page'))
     
+        # Get user with error handling
+    user = User.query.get(session['user_id'])
+    if not user:
+        flash('User not found. Please register again.', 'error')
+        return redirect(url_for('user.landing_page'))
+    
     form = MessageForm()
     user = User.query.get(session['user_id'])
+    print(user.name)
     
     if form.validate_on_submit():
         message = Message(
@@ -47,7 +54,7 @@ def message_page():
         flash('Your message has been sent successfully!', 'success')
         return redirect(url_for('user.contribute'))
     
-    return render_template('message.html', form=form, user=user)
+    return render_template('message.html', form=form, user=user, name=user.name)
 
 
 @user_bp.route('/contribute', methods=['GET', 'POST'])
@@ -59,9 +66,11 @@ def contribute():
     form = ContributionForm()
     user = User.query.get(session['user_id'])
 
+    form.phone.data = user.phone
+
     if form.validate_on_submit():
         amount = form.amount.data
-        raw_phone = form.phone.data  # assuming the form collects this
+        raw_phone = form.phone.data  
         phone = "254" + raw_phone.lstrip("0")
 
         # Step 1: Get OAuth token
@@ -79,12 +88,19 @@ def contribute():
         passkey = current_app.config['MPESA_PASSKEY']
         password = b64encode(f"{shortcode}{passkey}{timestamp}".encode()).decode()
 
-        base_url = current_app.config.get('BASE_URL', '').rstrip('/')
-        callback_url = f"{base_url}/mpesa_callback"
-
+        base_url = current_app.config.get('BASE_URL', '').strip().rstrip('/')
+        if not base_url:
+            current_app.logger.error("BASE_URL is not configured")
+            return redirect(url_for('user.payment_failed'))
+        
         if not base_url.startswith(('http://', 'https://')):
             current_app.logger.error("Invalid BASE_URL configuration")
             return redirect(url_for('user.payment_failed'))
+        
+        current_app.logger.debug(f"Loaded BASE_URL: {base_url}")
+
+        
+        callback_url = f"{base_url}/mpesa_callback"
 
 
         payload = {

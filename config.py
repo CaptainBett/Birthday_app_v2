@@ -3,7 +3,7 @@ from datetime import timedelta
 
 class Config:
     # Security
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard-to-guess-secret-key'
+    SECRET_KEY = os.environ.get('SECRET_KEY') 
     
     # Database
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') 
@@ -18,6 +18,7 @@ class Config:
     MPESA_API_URL = os.environ.get('MPESA_API_URL', 'https://sandbox.safaricom.co.ke')
     MPESA_SHORTCODE = os.environ.get('MPESA_SHORTCODE', '174379')
     MPESA_PASSKEY = os.environ.get('MPESA_PASSKEY')
+    BASE_URL = os.environ.get('BASE_URL')
     
     # Admin credentials
     ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')

@@ -15,7 +15,7 @@ class UserForm(FlaskForm):
         'Phone Number',
         validators=[
             DataRequired(message="A phone number is required."),
-            Length(min=10, max=15, message="Phone must be 10–15 digits.")
+            Length(min=2, max=15, message="Phone must be 10–15 digits.")
         ],
         render_kw={'placeholder': 'Phone Number'}
     )

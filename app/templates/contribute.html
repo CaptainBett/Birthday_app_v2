@@ -24,7 +24,7 @@
       {{ form.phone(class='input') }}
       {% if session['phone'] %}
         <p style="font-size: x-small; color: #555;">
-          Using your phone <strong>{{ session['phone'] }}</strong> by default, but you can change it.
+          Using your phone <strong>{{ user.phone }}</strong> by default, but you can change it.
         </p>
       {% endif %}
       {% if form.phone.errors %}
