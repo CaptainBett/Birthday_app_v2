@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Thank You! 🎉{% endblock %}
+
+{% block content %}
+  <h2 class="hero-title">Thank You! 🎉</h2>
+  <p>Your gift of <strong>{{ amount }}</strong> has been received. Can’t wait to celebrate!</p>
+{% endblock %}
+
+{% block extra_scripts %}
+  {{ super() }}
+  <script>
+    // once confetti.js is loaded by base.html, trigger it
+    startConfetti();
+  </script>
+{% endblock %}

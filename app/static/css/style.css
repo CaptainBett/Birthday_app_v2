@@ -42,27 +42,27 @@ body {
 }
 
 /* Forms */
-.premium-form input,
-.premium-form button,
-.premium-form textarea {
+.premium-form .input,
+.premium-form .button,
+.premium-form .textarea {
   width:100%; margin-bottom:1rem; padding:0.75rem 1rem;
   border:none; border-radius:999px; outline:none;
   transition: transform .2s, box-shadow .2s;
 }
-.premium-form input:focus,
-.premium-form textarea:focus {
+.premium-form .input:focus,
+.premium-form .textarea:focus {
   transform:scale(1.02);
   box-shadow:0 0 0 3px rgba(255,154,139,0.5);
 }
-.premium-form button {
+.premium-form .button {
   background:#ff5e7e; color:#fff; font-weight:600; cursor:pointer;
   box-shadow:0 4px 16px rgba(0,0,0,0.2);
 }
-.premium-form button:hover { transform:scale(1.05); box-shadow:0 6px 24px rgba(0,0,0,0.25); }
-.premium-form button:active{ transform:scale(0.98); }
+.premium-form .button:hover { transform:scale(1.05); box-shadow:0 6px 24px rgba(0,0,0,0.25); }
+.premium-form .button:active{ transform:scale(0.98); }
 
 /* Textarea */
-.premium-form textarea {
+.premium-form .textarea {
   border-radius:1rem; min-height:120px;
   font-family:'Merriweather', serif; resize:vertical;
 }

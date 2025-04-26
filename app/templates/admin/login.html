@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block title %}Admin Login{% endblock %} {% block
+content %}
+<div class="max-w-md mx-auto">
+  <!-- Header -->
+  <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 mb-8 text-center">
+    <h1 class="text-3xl font-bold">Admin Login</h1>
+    <p class="text-gray-300 mt-2">Access the birthday celebration dashboard</p>
+  </div>
+
+  <!-- Login Form -->
+  <div class="bg-white rounded-lg shadow-md p-8">
+    <form method="POST" action="{{ url_for('admin_panel.login') }}">
+      {{ form.csrf_token }}
+
+      <div class="mb-4">
+        <label
+          for="{{ form.username.id }}"
+          class="block text-gray-700 font-medium mb-2"
+          >{{ form.username.label }}</label
+        >
+        {{ form.username(class="w-full px-4 py-2 border rounded-lg
+        focus:outline-none focus:ring-2 focus:ring-blue-500") }} {% if
+        form.username.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="mb-6">
+        <label
+          for="{{ form.password.id }}"
+          class="block text-gray-700 font-medium mb-2"
+          >{{ form.password.label }}</label
+        >
+        {{ form.password(class="w-full px-4 py-2 border rounded-lg
+        focus:outline-none focus:ring-2 focus:ring-blue-500") }} {% if
+        form.password.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <div>
+        {{ form.submit(class="w-full bg-gray-800 hover:bg-gray-900 text-white
+        font-medium py-3 px-4 rounded-lg transition duration-200") }}
+      </div>
+    </form>
+  </div>
+
+  <div class="text-center mt-6">
+    <a
+      href="{{ url_for('user.landing_page') }}"
+      class="text-blue-600 hover:text-blue-800"
+      >Return to homepage</a
+    >
+  </div>
+</div>
+{% endblock %}
