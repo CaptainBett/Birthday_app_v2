@@ -79,10 +79,13 @@ def contribute():
         passkey = current_app.config['MPESA_PASSKEY']
         password = b64encode(f"{shortcode}{passkey}{timestamp}".encode()).decode()
 
-        base_url = current_app.config.get('BASE_URL')
+        base_url = current_app.config.get('BASE_URL', '').rstrip('/')
         callback_url = f"{base_url}/mpesa_callback"
 
-        checkout_id = str(uuid.uuid4())  # unique transaction ID
+        if not base_url.startswith(('http://', 'https://')):
+            current_app.logger.error("Invalid BASE_URL configuration")
+            return redirect(url_for('user.payment_failed'))
+
 
         payload = {
             "BusinessShortCode": shortcode,
@@ -94,7 +97,7 @@ def contribute():
             "PartyB": shortcode,
             "PhoneNumber": phone,
             "CallBackURL": callback_url,
-            "AccountReference": checkout_id,
+            "AccountReference":str(uuid.uuid4()),
             "TransactionDesc": "User Contribution"
         }
 
@@ -110,8 +113,9 @@ def contribute():
         )
         data = response.json()
 
-        if data.get("ResponseCode") == "0" and data.get("ResponseDescription") == "Success":
-            # Create a contribution record
+        if data.get("ResponseCode") == "0":
+            # Create a contribution 
+            checkout_id = data.get("CheckoutRequestID")
             contribution = Contribution(
                 amount=amount,
                 transaction_id=checkout_id,
