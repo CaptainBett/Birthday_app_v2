@@ -11,7 +11,8 @@
     <div class="mb-2">
       {{ form.name(class="input") }}
       {% if form.name.errors %}
-      <div style="font-size: x-small; color: red; margin-bottom: 5px;">
+      <div style="font-size: x-small; color: purple;
+ margin-bottom: 5px;">
         {% for err in form.name.errors %}
           <p>{{ err }}</p>
         {% endfor %}
@@ -22,7 +23,8 @@
     <div class="mb-2">
       {{ form.phone(class="input") }}
       {% if form.phone.errors %}
-      <div style="font-size: x-small; color: red; margin-bottom: 5px;">
+      <div style="font-size: x-small; color: purple;
+ margin-bottom: 5px;">
         {% for err in form.phone.errors %}
           <p>{{ err }}</p>
         {% endfor %}

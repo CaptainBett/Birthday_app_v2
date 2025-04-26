@@ -17,7 +17,8 @@
     <div class="mb-2">
       {{ form.content(class="textarea") }}
       {% if form.content.errors %}
-        <div style="font-size: x-small; color: red; margin-bottom: 5px;">
+        <div style="font-size: x-small; color: purple;
+ margin-bottom: 5px;">
           {% for err in form.content.errors %}
             <p>{{ err }}</p>
           {% endfor %}

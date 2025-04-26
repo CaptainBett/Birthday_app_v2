@@ -28,7 +28,7 @@ class MessageForm(FlaskForm):
         validators=[
             DataRequired(message="Please leave a message."),
             Length(
-                min=10,
+                min=2,
                 max=500,
                 message="Message must be at least 10 characters."
             )
@@ -41,7 +41,7 @@ class MessageForm(FlaskForm):
 class ContributionForm(FlaskForm):
     amount = IntegerField('Gift Amount:', validators=[
         DataRequired(),
-        NumberRange(min=1, message='Minimum contribution is KES 20')
+        NumberRange(min=20, message='Minimum contribution is KES 20😆')
     ],render_kw={
             'placeholder': 'KES 500',
         })
