@@ -208,6 +208,6 @@ def payment_success(checkout_id):
         flash('Contribution not found.', 'danger')
         return redirect(url_for('user.contribute'))
     
-    return render_template('payment_success.html', 
+    return render_template('thank_you.html', 
                          user=contribution.contributor,
                          amount=contribution.amount)
