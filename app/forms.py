@@ -41,7 +41,7 @@ class MessageForm(FlaskForm):
 class ContributionForm(FlaskForm):
     amount = IntegerField('Gift Amount:', validators=[
         DataRequired(),
-        NumberRange(min=20, message='Minimum contribution is KES 20')
+        NumberRange(min=1, message='Minimum contribution is KES 20')
     ],render_kw={
             'placeholder': 'KES 500',
         })
