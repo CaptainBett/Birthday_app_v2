@@ -113,7 +113,7 @@ def contribute():
             "PartyB": shortcode,
             "PhoneNumber": phone,
             "CallBackURL": callback_url,
-            "AccountReference":str(uuid.uuid4()),
+            "AccountReference": "Chochette's birthday",
             "TransactionDesc": "User Contribution"
         }
 
@@ -199,3 +199,15 @@ def contribution_status(checkout_id):
     if not contribution:
         return jsonify(status="unknown"), 404
     return jsonify(status=contribution.status, amount=contribution.amount)
+
+
+@user_bp.route('/payment_success/<checkout_id>')
+def payment_success(checkout_id):
+    contribution = Contribution.query.filter_by(transaction_id=checkout_id).first()
+    if not contribution:
+        flash('Contribution not found.', 'danger')
+        return redirect(url_for('user.contribute'))
+    
+    return render_template('payment_success.html', 
+                         user=contribution.contributor,
+                         amount=contribution.amount)

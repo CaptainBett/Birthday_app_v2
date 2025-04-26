@@ -8,3 +8,27 @@
 {% endblock %}
 
 
+{% block extra_scripts %}
+  {{ super() }}
+  <script>
+    // Add this to payment_pending.html
+    function checkPaymentStatus() {
+        const checkoutId = "{{ contribution.transaction_id }}";
+        
+        fetch(`/contribution_status/${checkoutId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = `/payment_success/${checkoutId}`;
+                } else if (data.status === 'failed') {
+                    window.location.href = "/payment_failed";
+                } else {
+                    setTimeout(checkPaymentStatus, 5000); // Check every 5 seconds
+                }
+            });
+    }
+    
+    // Start polling when page loads
+    document.addEventListener('DOMContentLoaded', checkPaymentStatus);
+    </script>
+{% endblock %}

@@ -37,8 +37,8 @@ def dashboard():
     users_count = User.query.count()
     messages_count = Message.query.count()
     contributions_count = Contribution.query.count()
-    total_amount = db.session.query(db.func.sum(Contribution.amount)).filter_by(status='completed').scalar() or 0
-    
+    total_amount = db.session.query(db.func.sum(Contribution.amount))\
+        .filter_by(status='success').scalar() or 0    
     recent_users = User.query.order_by(User.created_at.desc()).limit(5).all()
     recent_messages = Message.query.order_by(Message.created_at.desc()).limit(5).all()
     recent_contributions = Contribution.query.order_by(Contribution.created_at.desc()).limit(5).all()
@@ -67,17 +67,18 @@ def contributions():
     contributions = Contribution.query.join(User).order_by(Contribution.created_at.desc())\
         .paginate(page=page, per_page=10, error_out=False)
     
-    # Calculate total amount from completed contributions
-    total_amount = db.session.query(db.func.sum(Contribution.amount)).filter_by(status='completed').scalar() or 0
+    # Update filter to use 'success' status
+    total_amount = db.session.query(db.func.sum(Contribution.amount))\
+        .filter_by(status='success').scalar() or 0
     
-    # Calculate average contribution amount
-    completed_count = Contribution.query.filter_by(status='completed').count()
+    # Calculate average using successful payments
+    completed_count = Contribution.query.filter_by(status='success').count()
     average_amount = total_amount / completed_count if completed_count > 0 else 0
     
     return render_template('admin/contributions.html', 
-                          contributions=contributions,
-                          total_amount=total_amount,
-                          average_amount=average_amount)
+                         contributions=contributions,
+                         total_amount=total_amount,
+                         average_amount=average_amount)
 
 @admin_bp.route('/users')
 @login_required
